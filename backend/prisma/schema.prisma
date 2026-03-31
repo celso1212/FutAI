@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String       @id @default(uuid())
+  email         String       @unique
+  password      String
+  name          String?
+  favoriteTeams Team[]       @relation("UserFavoriteTeams")
+  analyses      Analysis[]
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  @@map("users")
+}
+
+model Team {
+  id              String       @id @default(uuid())
+  name            String       @unique
+  type            TeamType
+  country         String?
+  league          String?
+  logoUrl         String?
+  favoriteBy      User[]       @relation("UserFavoriteTeams")
+  analyses        Analysis[]
+  simulationsAsA  Simulation[] @relation("SimulationTeamA")
+  simulationsAsB  Simulation[] @relation("SimulationTeamB")
+  createdAt       DateTime     @default(now())
+
+  @@map("teams")
+}
+
+model Analysis {
+  id        String       @id @default(uuid())
+  userId    String
+  teamId    String
+  opponent  String?
+  mode      AnalysisMode @default(CLUB)
+  content   Json
+  rawInput  String?
+  createdAt DateTime     @default(now())
+
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  team      Team         @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@map("analyses")
+}
+
+model Simulation {
+  id        String   @id @default(uuid())
+  teamAId   String
+  teamBId   String
+  result    Json
+  createdAt DateTime @default(now())
+
+  teamA     Team     @relation("SimulationTeamA", fields: [teamAId], references: [id], onDelete: Cascade)
+  teamB     Team     @relation("SimulationTeamB", fields: [teamBId], references: [id], onDelete: Cascade)
+
+  @@map("simulations")
+}
+
+enum TeamType {
+  club
+  national
+}
+
+enum AnalysisMode {
+  CLUB
+  WORLD_CUP
+}
