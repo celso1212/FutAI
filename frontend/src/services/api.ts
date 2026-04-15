@@ -40,7 +40,7 @@ export const teamsApi = {
 
 // ─── Analysis ────────────────────────────────────────────────────────────────
 export const analysisApi = {
-  create: (data: { teamId: string; opponent?: string; rawInput?: string; mode?: string }) =>
+  create: (data: { teamId: string; opponent?: string; rawInput?: string; mode?: string; matchContext?: any }) =>
     api.post('/analysis', data).then((r) => r.data),
   list: (mode?: string) =>
     api.get('/analysis', { params: mode ? { mode } : {} }).then((r) => r.data),

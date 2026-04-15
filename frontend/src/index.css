@@ -46,3 +46,109 @@ select option {
   background-color: #1e293b;
   color: #e2e8f0;
 }
+
+/* World Cup Animations */
+@keyframes rainbow-pulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes stadium-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+  }
+}
+
+@keyframes trophy-shine {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes ball-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes slide-in-from-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-rainbow-pulse {
+  animation: rainbow-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-stadium-glow {
+  animation: stadium-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-trophy-shine {
+  animation: trophy-shine 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-ball-bounce {
+  animation: ball-bounce 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-slide-up {
+  animation: slide-in-from-bottom 0.5s ease-out;
+}
+
+/* Fade in animation */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+/* World Cup theme glow effect */
+.wc-glow {
+  position: relative;
+}
+
+.wc-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 99, 71, 0.1));
+  border-radius: inherit;
+  opacity: 0;
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}

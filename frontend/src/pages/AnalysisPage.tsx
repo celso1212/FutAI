@@ -5,7 +5,7 @@ import { teamsApi } from '@/services/api';
 import { analyzeTeam, listAnalyses } from '@/services/ai';
 import { useApp } from '@/contexts/AppContext';
 import { useTheme } from '@/contexts/ThemeContext';
-import { Analysis, Team } from '@/types';
+import { Analysis, Team, Competition, MatchLocation, MatchImportance } from '@/types';
 import Layout from '@/components/layout/Layout';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
@@ -14,6 +14,7 @@ import Loader from '@/components/ui/Loader';
 import EmptyState from '@/components/ui/EmptyState';
 import ErrorState from '@/components/ui/ErrorState';
 import AnalysisCard from '@/components/analysis/AnalysisCard';
+import MatchContextComponent from '@/components/analysis/MatchContext';
 
 export default function AnalysisPage() {
   const { isWorldCupMode, selectedTeam, setSelectedTeam } = useApp();
@@ -27,6 +28,9 @@ export default function AnalysisPage() {
   const [opponent, setOpponent] = useState('');
   const [rawInput, setRawInput] = useState('');
   const [showForm, setShowForm] = useState(false);
+  const [competition, setCompetition] = useState<Competition>('liginha');
+  const [location, setLocation] = useState<MatchLocation>('home');
+  const [importance, setImportance] = useState<MatchImportance>('medium');
 
   const { data: teams = [], isLoading: loadingTeams } = useQuery<Team[]>({
     queryKey: ['teams', teamType],
@@ -49,6 +53,7 @@ export default function AnalysisPage() {
         opponent: opponent || undefined,
         rawInput: rawInput || undefined,
         mode,
+        matchContext: { competition, location, importance },
       }),
     onSuccess: (data) => {
       // Sync selected team to AppContext
@@ -58,6 +63,9 @@ export default function AnalysisPage() {
       setTeamId('');
       setOpponent('');
       setRawInput('');
+      setCompetition('liginha');
+      setLocation('home');
+      setImportance('medium');
       setShowForm(false);
       return data;
     },
@@ -87,7 +95,7 @@ export default function AnalysisPage() {
           </div>
           <Button onClick={() => setShowForm((v) => !v)}>
             <Plus size={16} />
-            Nova Análise
+            Preparar Jogo
             <ChevronDown
               size={14}
               className={`transition-transform duration-200 ${showForm ? 'rotate-180' : ''}`}
@@ -98,7 +106,7 @@ export default function AnalysisPage() {
         {/* Form */}
         {showForm && (
           <Card glow className="animate-slide-up">
-            <h2 className="text-lg font-semibold text-white mb-5">Configurar Análise</h2>
+            <h2 className="text-lg font-semibold text-white mb-5">Preparação de Jogo</h2>
 
             {loadingTeams ? (
               <Loader label="Carregando times..." />
@@ -143,6 +151,16 @@ export default function AnalysisPage() {
                   />
                   <span className="text-xs text-slate-500 text-right">{rawInput.length}/2000</span>
                 </div>
+
+                {/* Match Context */}
+                <MatchContextComponent
+                  competition={competition}
+                  location={location}
+                  importance={importance}
+                  onCompetitionChange={setCompetition}
+                  onLocationChange={setLocation}
+                  onImportanceChange={setImportance}
+                />
 
                 {mutation.isError && (
                   <ErrorState

@@ -1,7 +1,7 @@
 import * as teamRepo from '../repositories/teamRepository';
 import * as analysisRepo from '../repositories/analysisRepository';
 import { analyzeTeam } from './aiService';
-import { AnalysisMode } from '../types';
+import { AnalysisMode, MatchContext } from '../types';
 
 export async function createAnalysis(data: {
   userId: string;
@@ -9,6 +9,7 @@ export async function createAnalysis(data: {
   opponent?: string;
   rawInput?: string;
   mode: AnalysisMode;
+  matchContext?: MatchContext;
 }) {
   const team = await teamRepo.findTeamById(data.teamId);
   if (!team) throw new Error('Time não encontrado');

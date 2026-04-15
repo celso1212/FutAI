@@ -105,7 +105,7 @@ export default function ComparePage() {
                 disabled={!canSubmit}
               >
                 <Swords size={16} />
-                {mutation.isPending ? 'Analisando...' : 'Comparar com IA'}
+                {mutation.isPending ? 'Analisando...' : 'Analisar Confronto'}
               </Button>
             </form>
           )}
@@ -150,7 +150,7 @@ export default function ComparePage() {
               </Card>
 
               <Card className="bg-blue-500/10 sm:col-span-2 lg:col-span-1">
-                <SectionHeader icon={<Target size={14} />} label="Estratégias" color="text-blue-400" />
+                <SectionHeader icon={<Target size={14} />} label="Estratégias de Jogo" color="text-blue-400" />
                 <BulletList items={result.analysis.estrategiasRecomendadas} color="text-blue-400" />
               </Card>
             </div>

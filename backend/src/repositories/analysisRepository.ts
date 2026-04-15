@@ -1,5 +1,5 @@
 import prisma from '../config/database';
-import { AnalysisMode, TacticalAnalysis } from '../types';
+import { AnalysisMode, TacticalAnalysis, MatchContext } from '../types';
 
 export async function createAnalysis(data: {
   userId: string;
@@ -8,9 +8,14 @@ export async function createAnalysis(data: {
   rawInput?: string;
   mode: AnalysisMode;
   content: TacticalAnalysis;
+  matchContext?: MatchContext;
 }) {
   return prisma.analysis.create({
-    data: { ...data, content: data.content as object },
+    data: { 
+      ...data, 
+      content: data.content as object,
+      matchContext: data.matchContext ? (data.matchContext as object) : null,
+    },
     include: { team: true },
   });
 }

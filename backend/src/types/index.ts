@@ -10,6 +10,9 @@ export interface AuthenticatedRequest extends Request {
 
 export type TeamType = 'club' | 'national';
 export type AnalysisMode = 'CLUB' | 'WORLD_CUP';
+export type Competition = 'liginha' | 'estadual' | 'copaDoBrasil' | 'libertadores' | 'copaDoMundo' | 'amistoso' | 'outras';
+export type MatchLocation = 'home' | 'away' | 'neutral';
+export type MatchImportance = 'low' | 'medium' | 'high';
 
 /** Minimal team data passed into the AI layer */
 export interface TeamData {
@@ -17,6 +20,12 @@ export interface TeamData {
   name: string;
   type: TeamType;
   country?: string | null;
+}
+
+export interface MatchContext {
+  competition: Competition;
+  location: MatchLocation;
+  importance: MatchImportance;
 }
 
 // ─── AI output contracts ─────────────────────────────────────────────────────

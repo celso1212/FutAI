@@ -5,7 +5,7 @@
  */
 
 import { analysisApi, compareApi, simulationsApi } from '@/services/api';
-import { Analysis, ComparisonResult, Simulation } from '@/types';
+import { Analysis, ComparisonResult, Simulation, MatchContext } from '@/types';
 
 // ─── Analyze a single team ────────────────────────────────────────────────────
 
@@ -13,6 +13,7 @@ interface AnalyzeTeamOptions {
   opponent?: string;
   rawInput?: string;
   mode?: 'CLUB' | 'WORLD_CUP';
+  matchContext?: MatchContext;
 }
 
 export function analyzeTeam(teamId: string, opts: AnalyzeTeamOptions = {}): Promise<Analysis> {
@@ -21,6 +22,7 @@ export function analyzeTeam(teamId: string, opts: AnalyzeTeamOptions = {}): Prom
     opponent: opts.opponent,
     rawInput: opts.rawInput,
     mode: opts.mode,
+    matchContext: opts.matchContext,
   });
 }
 

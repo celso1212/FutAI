@@ -70,14 +70,14 @@ export default function HomePage() {
           <QuickAction
             to="/analysis"
             icon={<BarChart2 size={22} />}
-            title="Nova Análise"
-            description="Gere análise tática com IA"
+            title="Preparar Jogo"
+            description="Análise tática com IA"
             isWorldCup={isWorldCup}
           />
           <QuickAction
             to="/compare"
             icon={<Trophy size={22} />}
-            title="Comparar Times"
+            title="Estudar Adversário"
             description="Confronto tático entre dois times"
             isWorldCup={isWorldCup}
           />

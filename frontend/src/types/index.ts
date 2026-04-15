@@ -1,5 +1,8 @@
 export type TeamType = 'club' | 'national';
 export type AnalysisMode = 'CLUB' | 'WORLD_CUP';
+export type Competition = 'liginha' | 'estadual' | 'copaDoBrasil' | 'libertadores' | 'copaDoMundo' | 'amistoso' | 'outras';
+export type MatchLocation = 'home' | 'away' | 'neutral';
+export type MatchImportance = 'low' | 'medium' | 'high';
 
 export interface Team {
   id: string;
@@ -26,6 +29,12 @@ export interface TacticalAnalysis {
   jogadoresChave: string[];
 }
 
+export interface MatchContext {
+  competition: Competition;
+  location: MatchLocation;
+  importance: MatchImportance;
+}
+
 export interface Analysis {
   id: string;
   teamId: string;
@@ -33,6 +42,7 @@ export interface Analysis {
   mode: AnalysisMode;
   content: TacticalAnalysis;
   rawInput?: string;
+  matchContext?: MatchContext;
   createdAt: string;
   team: Team;
 }

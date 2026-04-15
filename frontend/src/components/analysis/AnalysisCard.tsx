@@ -48,7 +48,7 @@ export default function AnalysisCard({ analysis, compact = false }: AnalysisCard
           {/* Pontos Fortes */}
           <div className={`rounded-xl p-4 ${accentBg}`}>
             <div className={`flex items-center gap-2 mb-3 text-sm font-semibold ${accent}`}>
-              <Zap size={14} /> Pontos Fortes
+              <Zap size={14} /> Padrões Ofensivos
             </div>
             <ul className="space-y-1.5">
               {content.pontosFortes.map((p, i) => (
@@ -60,10 +60,10 @@ export default function AnalysisCard({ analysis, compact = false }: AnalysisCard
             </ul>
           </div>
 
-          {/* Pontos Fracos */}
+          {/* Fragilidades Defensivas */}
           <div className="rounded-xl p-4 bg-red-500/10">
             <div className="flex items-center gap-2 mb-3 text-sm font-semibold text-red-400">
-              <Shield size={14} /> Pontos Fracos
+              <Shield size={14} /> Fragilidades Defensivas
             </div>
             <ul className="space-y-1.5">
               {content.pontosFracos.map((p, i) => (
@@ -75,10 +75,10 @@ export default function AnalysisCard({ analysis, compact = false }: AnalysisCard
             </ul>
           </div>
 
-          {/* Estratégia */}
+          {/* Plano de Jogo */}
           <div className="rounded-xl p-4 bg-blue-500/10 sm:col-span-2">
             <div className="flex items-center gap-2 mb-2 text-sm font-semibold text-blue-400">
-              <Target size={14} /> Estratégia
+              <Target size={14} /> Plano de Jogo
             </div>
             <p className="text-slate-300 text-sm">{content.estrategia}</p>
           </div>
